@@ -14,6 +14,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var table: UITableView!
     
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var nameLbl: UILabel!
+    
+    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBAction func saveName(_ sender: AnyObject) {
+
+       UserDefaults.standard.set(nameTextField.text, forKey: "name")
+        
+    }
+    
+    
     @IBAction func sliderPressed(_ sender: AnyObject) {
         
         table.reloadData()
@@ -40,7 +53,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let nameObject = UserDefaults.standard.object(forKey: "name")
+        
+        if let name = nameObject as? String {
+            
+            nameLbl.text = "Welcome \(name)"
+            nameTextField.isHidden = true
+            saveButton.isHidden = true
+            
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
